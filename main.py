@@ -7,5 +7,11 @@ def load_data():
 
 
 if __name__ == '__main__':
-    english_sents, french_sents = load_data()
-    print(len(english_sents), len(french_sents))
+    english_sentences, french_sentences = load_data()
+    print(len(english_sentences), len(french_sentences))
+
+    print('Number of English sentences:', len(english_sentences),
+          '\nNumber of French sentences:', len(french_sentences), '\n')
+    print('Example/Target pair:\n')
+    print('  ' + english_sentences[2])
+    print('  ' + french_sentences[2])

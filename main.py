@@ -1,22 +1,11 @@
-# Before we get started we will load all the packages we will need
+def load_data():
+    with open('small_vocab_en', "r") as f:
+        data1 = f.read()
+    with open('small_vocab_fr', "r") as f:
+        data2 = f.read()
+    return data1.split('\n'), data2.split('\n')
 
-# Pytorch
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-from torch.utils.data import Dataset, DataLoader
-
-import numpy as np
-import os.path
-import time
-import math
-import random
-import matplotlib.pyplot as plt
-import string
-
-# Use gpu if available
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 if __name__ == '__main__':
-    print('hello')
+    english_sents, french_sents = load_data()
+    print(len(english_sents), len(french_sents))

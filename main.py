@@ -1,45 +1,24 @@
-def load_data():
-    with open('small_vocab_en', "r") as f:
-        data1 = f.read()
-    with open('small_vocab_fr', "r") as f:
-        data2 = f.read()
-    return data1.split('\n'), data2.split('\n')
-
-
-def longest_sentences(sentences):
-    max_length = 0
-    for sentence in sentences:
-        length = len(sentence.split())
-        max_length = max(max_length, length)
-    return max_length
-
-
-def word_dictionary(sentences):
-    word_count = {}
-    for sent in sentences:
-        for word in sent.split():
-            if word in word_count:
-                word_count[word] += 1
-            else:
-                word_count[word] = 1
-    word_count['</s>'] = len(sentences)
-    return word_count
-
-
-def get_value(items_tuple):
-    return items_tuple[1]
-
+from data_prepared import load_embedding
+from data_loader import French2EnglishDataset
+from data_prepared import word_index, load_large_data, longest_sentences
 
 if __name__ == '__main__':
-    english_sentences, french_sentences = load_data()
-    print(len(english_sentences), len(french_sentences))
-    print("The longest english sentence in our dataset is:", longest_sentences(sentences=english_sentences))
-    print("The longest french sentence in our dataset is:", longest_sentences(sentences=french_sentences))
+    # en_words, en_vectors = load_embedding(language='en')
+    # en_word2idx = word_index(word_count=list(en_words))
+    # exit()
+    # print(en_words.shape, en_vectors.shape, len(en_words))
+    # fr_words, fr_vectors = load_embedding(language='fr')
+    # fr_word2idx = word_index(word_count=list(fr_words))
+    # print(fr_words.shape, fr_vectors.shape, len(en_words))
 
-    print('Number of unique English words:', len(word_dictionary(sentences=english_sentences)))
-    print('Number of unique France words:', len(word_dictionary(sentences=french_sentences)))
+    english_sentences, french_sentences = load_large_data()
+    max_en_sents, max_fr_sents = longest_sentences(sentences=english_sentences), longest_sentences(
+        sentences=french_sentences)
+    print(max_en_sents, max_fr_sents)
 
-    # Sort the word counts to see what words or most/least common
-    en_word_count = word_dictionary(sentences=english_sentences)
-    sorted_en_words = sorted(en_word_count.items(), key=get_value, reverse=True)
-    print(sorted_en_words[:10])
+    exit()
+    french_english_dataset = French2EnglishDataset(french_sentences,
+                                                   english_sentences,
+                                                   fr_word2idx,
+                                                   en_word2idx,
+                                                   seq_length=seq_length)

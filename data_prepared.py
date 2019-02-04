@@ -59,6 +59,9 @@ def word_dictionary(sentences):
 
 def word_index(word_count):
     word2idx = {k: v + 3 for v, k in enumerate(word_count.keys())}
+    word2idx['<pad>'] = 0
+    word2idx['<s>'] = 1
+    word2idx['<unk>'] = 2
     return word2idx
 
 

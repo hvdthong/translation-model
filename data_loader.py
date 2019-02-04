@@ -1,14 +1,17 @@
 import torch
+from torch.utils.data import Dataset
 
 
-class French2EnglishDataset():
+class French2EnglishDataset(Dataset):
     '''
             French and associated English sentences.
         '''
 
-    def __init__(self, fr_sentences, en_sentences, fr_word2idx, en_word2idx, seq_length):
+    def __init__(self, fr_sentences, en_sentences, fr_word_count, en_word_count, fr_word2idx, en_word2idx, seq_length):
         self.fr_sentences = fr_sentences
         self.en_sentences = en_sentences
+        self.fr_word_count = fr_word_count
+        self.en_word_count = en_word_count
         self.fr_word2idx = fr_word2idx
         self.en_word2idx = en_word2idx
         self.seq_length = seq_length
@@ -16,7 +19,7 @@ class French2EnglishDataset():
         self.unk_fr = set()
 
     def __len__(self):
-        return len(self.french_sentences)
+        return len(self.fr_sentences)
 
     def __getitem__(self, idx):
         '''

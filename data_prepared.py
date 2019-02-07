@@ -11,6 +11,31 @@ def load_data():
     return data1.split('\n'), data2.split('\n')
 
 
+def load_small_data():
+    with open('./data/small_vocab_en', "r") as f:
+        english_sents = f.read()
+    with open('./data/small_vocab_fr', "r") as f:
+        french_sents = f.read()
+    english_sentences = []
+    french_sentences = []
+
+    for i, j in zip(english_sents, french_sents):
+        english = i.lower()
+        french = j.lower()
+
+        # Remove punctuation and limit sentence length
+        max_sent_length = 10
+        punctuation_table = english.maketrans({i: None for i in string.punctuation})
+        english = english.translate(punctuation_table)
+        french = french.translate(punctuation_table)
+        if len(english.split()) > max_sent_length or len(french.split()) > max_sent_length:
+            continue
+
+        english_sentences.append(english)
+        french_sentences.append(french)
+    return english_sentences, french_sentences
+
+
 def load_large_data():
     with open('data/fra.txt', "r") as f:
         data1 = f.read()

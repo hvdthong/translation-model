@@ -576,8 +576,8 @@ if __name__ == '__main__':
     torch.save(decoder_gru.state_dict(), 'models/decoder_gru.pth')
 
     # # Build the idx to word dictionaries to convert predicted indices to words
-    # en_idx2word = {k: i for i, k in en_word2idx.items()}
-    # fr_idx2word = {k: i for i, k in fr_word2idx.items()}
+    en_idx2word = {k: i for i, k in en_word2idx.items()}
+    fr_idx2word = {k: i for i, k in fr_word2idx.items()}
     # batch = get_batch(dataloader)
     # num_batch = 15
     # input_tensor = batch['french_tensor'][num_batch].unsqueeze_(0)
